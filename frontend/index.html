@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Order System</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>🍽️ Food Order</h1>
+      <p>ระบบสั่งอาหารออนไลน์</p>
+    </header>
+
+    <main>
+      <!-- เพิ่มเมนู -->
+      <section>
+        <h2>➕ เพิ่มเมนู</h2>
+
+        <form id="menu-form">
+          <input type="hidden" id="menu-id" />
+
+          <input id="menu-name" type="text" placeholder="ชื่ออาหาร" required />
+
+          <input
+            type="text"
+            id="menu-price"
+            placeholder="ราคา"
+            inputmode="decimal"
+            required
+          />
+
+          <button type="submit" id="save-menu">เพิ่มเมนู</button>
+          <button type="button" id="cancel-edit" class="gray">ยกเลิก</button>
+        </form>
+
+        <div id="menu-message"></div>
+      </section>
+
+      <!-- รายการอาหาร -->
+      <section>
+        <h2>🍜 รายการอาหาร</h2>
+        <div id="menu-list"></div>
+      </section>
+
+      <!-- ตะกร้าสินค้า -->
+      <section>
+        <h2>🛒 ตะกร้าสินค้า</h2>
+
+        <div id="cart-list">ยังไม่มีสินค้า</div>
+
+        <p>จำนวนทั้งหมด: <strong id="cart-count">0</strong> ชิ้น</p>
+        <h3>รวม: <span id="total-price">0.00</span> บาท</h3>
+
+        <input id="customer-name" type="text" placeholder="ชื่อลูกค้า" />
+
+        <button id="order-button">ยืนยันการสั่งอาหาร</button>
+        <p id="order-message"></p>
+      </section>
+
+      <!-- คำสั่งซื้อ -->
+      <section>
+        <h2>📋 คำสั่งซื้อ</h2>
+
+        <div class="search">
+          <input
+            id="order-search"
+            type="text"
+            placeholder="ค้นหาชื่อลูกค้าหรือเลขคำสั่งซื้อ"
+          />
+
+          <select id="status-filter">
+            <option value="all">ทุกสถานะ</option>
+            <option value="pending">รอดำเนินการ</option>
+            <option value="preparing">กำลังเตรียม</option>
+            <option value="delivered">จัดส่งแล้ว</option>
+          </select>
+
+          <button id="refresh-orders" class="gray">รีเฟรช</button>
+        </div>
+
+        <div id="orders-list"></div>
+      </section>
+    </main>
+
+    <footer>Food Order System</footer>
+  </body>
+</html>

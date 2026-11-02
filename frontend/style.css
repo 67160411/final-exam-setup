@@ -1,0 +1,275 @@
+/* ตั้งค่าพื้นฐาน */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ส่วนหัว */
+header {
+  background: #ed793d;
+  color: white;
+  text-align: center;
+  padding: 12px;
+}
+
+header h1 {
+  margin: 0 0 5px;
+  font-size: 22px;
+}
+
+header p {
+  font-size: 13px;
+  margin: 0;
+}
+
+/* พื้นที่หลัก */
+main {
+  max-width: 1000px;
+  width: 94%;
+  margin: 15px auto;
+}
+
+/* กล่องแต่ละส่วน */
+section {
+  background: white;
+  padding: 14px;
+  margin-bottom: 13px;
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-top: 0;
+  border-bottom: 2px solid #f2e5dc;
+  padding-bottom: 8px;
+}
+
+/* ช่องกรอกข้อมูล */
+input,
+select {
+  padding: 9px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+/* กล่องเพิ่มเมนู */
+#menu-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+}
+
+#menu-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px;
+}
+
+/* ปุ่ม */
+button {
+  background: #ed793d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.gray {
+  background: #777;
+}
+
+.danger {
+  background: #dc4545;
+}
+
+/* รายการอาหาร */
+#menu-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.menu-card {
+  border: 1px solid #eee;
+  border-radius: 7px;
+  padding: 10px;
+  min-width: 0;
+}
+
+.menu-card h3 {
+  font-size: 14px;
+  margin: 0 0 5px;
+  overflow-wrap: anywhere;
+}
+
+.menu-card p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.menu-card button {
+  padding: 6px 7px;
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.price {
+  color: #ed793d;
+  font-weight: bold;
+}
+
+.available {
+  color: green;
+}
+
+.unavailable {
+  color: red;
+}
+
+/* ตะกร้าสินค้า */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 7px 0;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.cart-item button {
+  padding: 5px 9px;
+}
+
+/* ค้นหาคำสั่งซื้อ */
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* รายการคำสั่งซื้อ */
+#orders-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.order-card {
+  border: 1px solid #eee;
+  border-radius: 7px;
+  padding: 10px;
+  min-width: 0;
+}
+
+.order-card h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.order-card p {
+  font-size: 12px;
+  margin: 5px 0;
+  overflow-wrap: anywhere;
+}
+
+.order-items {
+  background: #fafafa;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 5px;
+}
+
+.order-items p {
+  margin: 4px 0;
+}
+
+.order-card select {
+  padding: 6px;
+  max-width: 100%;
+}
+
+/* ข้อความแจ้งเตือน */
+.message-error {
+  color: red;
+  font-size: 12px;
+}
+
+.message-success {
+  color: green;
+  font-size: 12px;
+}
+
+/* ส่วนท้าย */
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #888;
+  font-size: 12px;
+}
+
+/* Tablet */
+@media (max-width: 700px) {
+  #menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #orders-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 450px) {
+  main {
+    width: 95%;
+  }
+
+  section {
+    padding: 11px;
+  }
+
+  #menu-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #menu-form button {
+    width: 100%;
+  }
+
+  #menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cart-item {
+    align-items: flex-start;
+  }
+}
