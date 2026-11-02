@@ -24,10 +24,15 @@ async function createMenu(req, res) {
     // รับข้อมูลจากผู้ใช้
     const { name, price, available } = req.body;
 
-    // ตรวจสอบข้อมูล
-    if (!name || price === undefined) {
+    if (
+      !name ||
+      price === undefined ||
+      price === null ||
+      !Number.isFinite(Number(price)) ||
+      Number(price) <= 0
+    ) {
       return res.status(400).json({
-        message: "Name and price are required",
+        message: "Invalid menu data",
       });
     }
 

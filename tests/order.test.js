@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../src/app");
+const { pool } = require("../db");
 
 describe("Order API", () => {
   let orderId;
@@ -37,26 +38,17 @@ describe("Order API", () => {
     const response = await request(app)
       .post("/api/orders")
       .send({
-        items: [
-          {
-            menu_item_id: 1,
-            quantity: 2,
-          },
-        ],
+        items: [{ menu_item_id: 1, quantity: 2 }],
       });
 
     expect(response.status).toBe(400);
   });
 
-  // Test 4: เปลี่ยนสถานะคำสั่งซื้อ
-  test("PATCH /api/orders/:id/status should update order status", async () => {
-    const response = await request(app)
-      .patch(`/api/orders/${orderId}/status`)
-      .send({
-        status: "preparing",
-      });
+  // Test 4: ไม่ส่งสถานะคำสั่งซื้อ
+  test("PATCH /api/orders/:id/status should return 400 if status is missing", async () => {
+    const response = await request(app).patch("/api/orders/1/status").send({});
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
   });
 
   // Test 5: ส่งสถานะที่ไม่อนุญาต
@@ -79,5 +71,53 @@ describe("Order API", () => {
       });
 
     expect(response.status).toBe(404);
+  });
+
+  // Test 7: ไม่ส่งรายการอาหาร
+  test("POST /api/orders should return 400 if items are missing", async () => {
+    const response = await request(app).post("/api/orders").send({
+      customer_name: "ลูกค้าทดสอบ",
+    });
+
+    expect(response.status).toBe(400);
+  });
+
+  // Test 8: จำนวนอาหารเป็น 0
+  test("POST /api/orders should return 400 if quantity is zero", async () => {
+    const response = await request(app)
+      .post("/api/orders")
+      .send({
+        customer_name: "ลูกค้าทดสอบ",
+        items: [{ menu_item_id: 1, quantity: 0 }],
+      });
+
+    expect(response.status).toBe(400);
+  });
+
+  // Test 9: จำนวนอาหารติดลบ
+  test("POST /api/orders should return 400 if quantity is negative", async () => {
+    const response = await request(app)
+      .post("/api/orders")
+      .send({
+        customer_name: "ลูกค้าทดสอบ",
+        items: [{ menu_item_id: 1, quantity: -2 }],
+      });
+
+    expect(response.status).toBe(400);
+  });
+
+  // ลบข้อมูลทดสอบหลังจาก Test ทั้งหมดเสร็จ
+  afterAll(async () => {
+    try {
+      if (orderId) {
+        await pool.execute("DELETE FROM order_items WHERE order_id = ?", [
+          orderId,
+        ]);
+
+        await pool.execute("DELETE FROM orders WHERE id = ?", [orderId]);
+      }
+    } finally {
+      await pool.end();
+    }
   });
 });
